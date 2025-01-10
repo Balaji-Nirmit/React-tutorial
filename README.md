@@ -42,3 +42,62 @@ npm install
 * package.json: contains info about the project like name, version, dependencies on other react packages
 * index.html
 * vite.config.js:contains vite config
+
+# file extensions
++ .js
++ .jsx:-stands for javascript XML and this combines javascript with html like tags
+
+# components
+
+## class components
+ this is not used now a days
+## functional components
+ initially stateless and can use hooks for state and effects
+
+# jsx
++ javascript xml
++ determines how the component will look and is not html rather jsx
++ gets converted to javascript behind the scene
++ initially index.html file is executed which call index.jsx or main.jsx which renders the App.jsx file
+## creating a component
+```js
+function file_name(){
+}
+extport default file_name;
+```
+here file_name must start with capital letter
+
+```js
+import Button1 from "./Button1"
+function App(){
+return <div>
+  <h1>hello world</h1>
+  <Button1></Button1>
+</div>
+}
+export default App;
+```
+to use the component we need to import it
+
+```js
+export default function file_name(){
+}
+```
+
+```js
+export function function_name(){
+}
+export function function_name_2(){
+}
+```
+
+```js
+export function function_name(){
+}
+
+export default function_name_2(){
+}
+```
+all the above are ways to make components
++ there can be default export, named exports or default and named exports
++ 
