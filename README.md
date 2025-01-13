@@ -124,3 +124,70 @@ npm i bootstrap@5.3.2
 ```
 ```jsx
 import "bootstrap/dist/css/bootstrap.min.css";
+```
+# fragments
+
+Fragments are a way to group multiple elements without introducing an extra DOM node. This helps keep the DOM tree clean and prevents unnecessary wrappers or divs.
+
+```jsx
+function Fragment(){
+  return <h1>lists</h1>
+    <ul>
+      <li>iron man</li>
+      <li>captain america</li>
+    </ul>
+  
+}
+export default Fragment;
+```
+this will throw error
+to solve this we can add all into a div but it will create an additional un-necessary tag so use fragments
+
+```jsx
+import React from 'react';
+function Fragment(){
+  return <React.Fragment><h1>lists</h1>
+    <ul>
+      <li>iron man</li>
+      <li>captain america</li>
+    </ul>
+  </React.Fragment>
+}
+export default Fragment;
+```
+
+short hand
+```jsx
+function Fragment(){
+  return <>
+    <h1>lists</h1>
+    <ul>
+      <li>iron man</li>
+      <li>captain america</li>
+    </ul>
+  </>
+}
+export default Fragment;
+```
+in this method no need to import react
+
+# Map method
+
+```jsx
+import React from 'react';
+function Fragment(){
+  let items=['iron man','captain america']
+  return <React.Fragment><h1>lists</h1>
+    <ul>
+      {items.map(item => <li>{item}</li>)}
+    </ul>
+  </React.Fragment>
+}
+export default Fragment;
+```
+this renders from array data
++ but this will throw error in console to must have a id while rendering a list and this id will also help in reducing time to reload when few items are changed
++ and always use className instead of class
+```jsx
+{items.map(item => <li className="abc" key={item}>{item}</li>}
+```
