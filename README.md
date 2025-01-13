@@ -100,4 +100,20 @@ export default function_name_2(){
 ```
 all the above are ways to make components
 + there can be default export, named exports or default and named exports
-+ 
++ in react css can be directly imported.
+# dynamic component
+{} using this 
+
+```js
+function Hello(){
+  var myName="nirmit pratap singh";
+  return <h3>hello bhai i am {myName}</h3>
+}
+export default Hello;
+```
+
+# resuable component
++ modularity: components are modular allowing for easy resuse across different parts of an application
++ efficiency
++ consistency
++ maintenability: changes made to a reused component would be reflected on each and every page that component is used
