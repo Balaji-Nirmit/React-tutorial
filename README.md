@@ -248,3 +248,16 @@ function App(){
 export default App;
 ```
 it is App.jsx
+
+```jsx
+const Fragment=({items})=>{
+  
+  return (<><h1>lists</h1>
+    <ul>
+      {items.map(item => <li key={item}>{item}</li>)}
+    </ul>
+  </>);
+}
+export default Fragment;
+```
+can also do like this using destructuring
