@@ -219,3 +219,32 @@ export default Fragment;
 + passes data from parent to child
 + data flows one way only (downwards)
   
+```jsx
+const Fragment=(props)=>{
+  
+  return (<><h1>lists</h1>
+    <ul>
+      {props.items.map(item => <li key={item}>{item}</li>)}
+    </ul>
+  </>);
+}
+export default Fragment;
+```
+it is Fragment.jsx
+
+```jsx
+import Button1 from "./Button1";
+import Hello from "./Hello";
+import Fragment from "./Fragment";
+function App(){
+  let items=["iron man","captain america"];
+  return <div>
+    <h1>hello world</h1>
+    <Button1></Button1>
+    <Hello></Hello>
+    <Fragment items={items}></Fragment>
+  </div>
+}
+export default App;
+```
+it is App.jsx
