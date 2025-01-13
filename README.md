@@ -191,3 +191,31 @@ this renders from array data
 ```jsx
 {items.map(item => <li className="abc" key={item}>{item}</li>}
 ```
+# conditional rendering
+
+```jsx
+import React from 'react';
+function Fragment(){
+  
+  let items=['iron man','captain america'];
+  items=[];
+  if(items.length===0){
+    return <h1>empty</h1>
+  }
+  return <React.Fragment><h1>lists</h1>
+    <ul>
+      {items.map(item => <li key={item}>{item}</li>)}
+    </ul>
+  </React.Fragment>
+}
+export default Fragment;
+```
++ we can also use ternary operator also inside {} into return statement
+
+# passing data via props
++ short for properties
++ mechanism for passing data
++ read only by default
++ passes data from parent to child
++ data flows one way only (downwards)
+  
