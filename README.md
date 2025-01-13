@@ -261,3 +261,28 @@ const Fragment=({items})=>{
 export default Fragment;
 ```
 can also do like this using destructuring
+
+# css modules
++ localised class names to avoid global conflicts
++ automatically generates unique class names
++ helps in creating component specific styles
++ styles are scoped to individual components
++ file name must be like this
+```bash
+component_name.module.css
+```
+and then import it into the file
+```jsx
+import styles from './Items.module.css';
+```
+file name of css here is Items.module.css
+
+```jsx
+<li className={`${styles["my-class"]} additional-tailwinf-or-bootsstrap-class`}>hell yeah</li>
+```
+```css
+.my-class{
+border:2px solid red;
+}
+```
+above the word style is just a name can be css or mystyle or anything
