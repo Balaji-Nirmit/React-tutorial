@@ -117,3 +117,10 @@ export default Hello;
 + efficiency
 + consistency
 + maintenability: changes made to a reused component would be reflected on each and every page that component is used
+
+# including bootstrap
+```bash
+npm i bootstrap@5.3.2
+```
+```jsx
+import "bootstrap/dist/css/bootstrap.min.css";
