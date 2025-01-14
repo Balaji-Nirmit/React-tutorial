@@ -563,3 +563,10 @@ function Forms(){
 }
 export default Forms;
 ```
+
+# spread operator
+```jsx
+let arr1=[1,2,3];
+let arr2=[...arr1,4,5];
+```
+here arr2= [1,2,3,4,5]
