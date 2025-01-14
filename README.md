@@ -370,3 +370,98 @@ onClick={method_name}
  {items.map(item => <li key={item}>{item} <button onClick={(event)=>console.log('hehe')}>press me</button></li>)}
 ```
 can pass event also
+
+# passing functions via props
+
++ commonly used for event handling
++ parent defines a function and child invokes it
++ enhances component interactively
++ this way upward communication i.e child to parent
+```jsx
+import Button1 from "./Button1";
+import Hello from "./Hello";
+import Fragment from "./Fragment";
+function App(){
+  let items=["iron man","captain america"];
+  const handleButton=(event)=>{
+    console.log(event)
+  }
+  return <div>
+    <h1>hello world</h1>
+    <Button1></Button1>
+    <Hello></Hello>
+    <Fragment items={items} handleButton={(event)=>handleButton(event)}>
+      <h1>yo wai mo</h1>
+      <p>welcome to the hidden leaf</p>
+    </Fragment>
+  </div>
+}
+export default App;
+```
+App.jsx
+```jsx
+const Fragment=({children,items,handleButton})=>{
+  
+  return (<><h1>lists</h1>
+    <ul>
+      {items.map(item => <li key={item}>{item} <button onClick={handleButton}>press me</button></li>)}
+    </ul>
+    {children}
+  </>);
+}
+export default Fragment;
+```
+Fragment.jsx
+
+# managing state 
++ state represents data that changes over time and is local and private to the component
++ state changes cause components to re-render
++ for functional components use useState hook
++ react functions that start with keyword use are called hooks
++ hooks should only be inside components
++ parent components can pass state down to children via props
++ share state by moving it to their closest common ancestor
+useState returns an array with2 elements current value and a method to change the value
+
+```jsx
+import { useState } from "react";
+
+const Fragment=({children,items,handleButton})=>{
+  let textState=useState("initial value");
+  let gettextState=textState[0];
+  let settextState=textState[1];
+  const textChange=(event)=>{
+    settextState(event.target.value);
+  }
+  
+  return (<><h1>lists</h1>
+    <ul>
+      {items.map(item => <li key={item}>{item} <button onClick={handleButton}>press me</button></li>)}
+    </ul>
+    {children}
+    <input type='text' onChange={(event)=>textChange(event)}></input>
+    {gettextState}
+  </>);
+}
+export default Fragment;
+```
+```jsx
+import { useState } from "react";
+
+const Fragment=({children,items,handleButton})=>{
+  let [gettextState,settextState]=useState("initial value");
+  const textChange=(event)=>{
+    settextState(event.target.value);
+  }
+  
+  return (<><h1>lists</h1>
+    <ul>
+      {items.map(item => <li key={item}>{item} <button onClick={handleButton}>press me</button></li>)}
+    </ul>
+    {children}
+    <input type='text' onChange={(event)=>textChange(event)}></input>
+    {gettextState}
+  </>);
+}
+export default Fragment;
+```
