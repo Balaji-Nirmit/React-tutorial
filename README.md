@@ -465,3 +465,101 @@ const Fragment=({children,items,handleButton})=>{
 }
 export default Fragment;
 ```
+
+# react icon library
++ lot of icons without managing them
+```bash
+npm install react-icons -save
+```
+```jsx
+import {IconName} from "react-icons/fc";
+```
+```jsx
+import { FaHome } from "react-icons/fa";
+return <FaHome />
+```
+
+# inspecting with react dev tools
++ react dev tool is a chrome extension which can be used to inspect and make changes via browser very easily
++ it shows state and props also
+# how react works
+
+- root component
+  - the App is the main component or root component of a react application and is the starting point of react component tree
+- virtual DOM
+  - react creates a in memory structure called virtual DOM which is a lightweight representation where each node stands for component and its attributes
+- reconciliation process
+  - when component detect changes the react updates the virtual dom state to mirror these changes, then compares the current and previous versions of the virtual DOM, identifies specific nodes they are updating and only those nodes are updated in the real browser DOM
+
+index.html file -> main.jsx
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+	<React.StrictMode>
+		<App />
+	</React.StrictMode>
+)
+```
+this is main.jsx
+it has react and react-dom/client imported
++ strictmode helps in notifying the errors while development only not in production
++ ReactDOM converts react dom to actual browser dom
++ if used ReactNative then it would have converted it into android or ios app
++ React's main role is to create dynamic UI and not help in routing,https calls, state management and more
+
+# forms 
++ state management:- each input's state is stored in components' state
++ use onChange to detect changes
++ use onSubmit for form submission and prevent default with event.preventDefault()
++ implement custom validation or use 3rd party libraries
+
+```jsx
+import { useState } from "react";
+
+function Forms(){
+  let [getName,setName]=useState();
+  let [getEmail,setEmail]=useState();
+  const submitForm=(event)=>{
+    console.log(getName+getEmail);
+    event.preventDefault();
+  }
+  return (<>
+    <form onSubmit={submitForm}>
+      <input type="text" value={getName} onChange={(event)=>setName(event.target.value)} placeholder="enter your name" />
+      <input type="email" value={getEmail} onChange={(event)=>setEmail(event.target.value)} placeholder="enter your email" />
+      <button>submit</button>
+    </form>
+  </>)
+}
+export default Forms;
+```
+# use ref
++ allows access to DOM elements and retain mutable values without re-renders
++ used with ref attribute for direct DOM interaction
++ can hold previous state or prop values
++ not limited to DOM references can hold any value
++ Refs can be passed as props also
+```jsx
+import { useRef} from "react";
+
+function Forms(){
+  let getName=useRef();
+  let getEmail=useRef();
+  const submitForm=(event)=>{
+    console.log(getName.current.value+getEmail.current.value);
+    event.preventDefault();
+  }
+  return (<>
+    <form onSubmit={submitForm}>
+      <input type="text" ref={getName} placeholder="enter your name" />
+      <input type="email" ref={getEmail} placeholder="enter your email" />
+      <button>submit</button>
+    </form>
+  </>)
+}
+export default Forms;
+```
