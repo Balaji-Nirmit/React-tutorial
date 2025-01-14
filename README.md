@@ -570,3 +570,6 @@ let arr1=[1,2,3];
 let arr2=[...arr1,4,5];
 ```
 here arr2= [1,2,3,4,5]
+
+# functional updates
++ use (existingPosts)=>[postData,...existingPost] to avoid stale values during asynchronous updates
