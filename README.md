@@ -286,3 +286,65 @@ border:2px solid red;
 }
 ```
 above the word style is just a name can be css or mystyle or anything
+
+# passing children
+
++ children is a special prop for passing elements into components
++ used for flexible and reusable design
++ accessed with props.children
++ can be any content: string, numbers ,jsx or components
+
+```jsx
+  const Fragment=(props)=>{
+  
+  return (<><h1>lists</h1>
+    <ul>
+      {props.items.map(item => <li key={item}>{item}</li>)}
+    </ul>
+    {props.children}
+  </>);}
+export default Fragment;
+```
+this is Fragments.jsx
+```jsx
+import Button1 from "./Button1";
+import Hello from "./Hello";
+import Fragment from "./Fragment";
+function App(){
+  let items=["iron man","captain america"];
+  return <div>
+    <h1>hello world</h1>
+    <Button1></Button1>
+    <Hello></Hello>
+    <Fragment items={items}>
+      <h1>yo wai mo</h1>
+      <p>welcome to the hidden leaf</p>
+    </Fragment>
+  </div>
+}
+export default App;
+```
+this is App.jsx
+
+```jsx
+const Fragment=({children,items})=>{
+  
+  return (<><h1>lists</h1>
+    <ul>
+      {items.map(item => <li key={item}>{item}</li>)}
+    </ul>
+    {children}
+  </>);
+}
+export default Fragment;
+```
+can be like this also
+
+# handling events
+
++ react uses camelCase eg: onClick for events
++ uses synthetic events not browser events
++ event handlers can be functions or arrow functions
++ uses onChange for controlled form inputs
++ avoid inline arrow functions in jsx for performance issues
+  
