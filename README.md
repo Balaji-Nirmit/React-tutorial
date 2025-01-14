@@ -280,6 +280,10 @@ file name of css here is Items.module.css
 ```jsx
 <li className={`${styles["my-class"]} additional-tailwinf-or-bootsstrap-class`}>hell yeah</li>
 ```
+or 
+```jsx
+<li className={styles.class}>hell yeah</li>
+```
 ```css
 .my-class{
 border:2px solid red;
@@ -347,4 +351,22 @@ can be like this also
 + event handlers can be functions or arrow functions
 + uses onChange for controlled form inputs
 + avoid inline arrow functions in jsx for performance issues
+```jsx
+const Fragment=({children,items})=>{
   
+  return (<><h1>lists</h1>
+    <ul>
+      {items.map(item => <li key={item}>{item} <button onClick={()=>console.log('hehe')}>press me</button></li>)}
+    </ul>
+    {children}
+  </>);
+}
+export default Fragment;
+```
+can make a separate method above the return statement and call it in onClick
+onClick={method_name}
+
+```jsx
+ {items.map(item => <li key={item}>{item} <button onClick={(event)=>console.log('hehe')}>press me</button></li>)}
+```
+can pass event also
