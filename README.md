@@ -211,6 +211,7 @@ function Fragment(){
 export default Fragment;
 ```
 + we can also use ternary operator also inside {} into return statement
++ can also use the syntax ` condition && statement_to_be_returned_when_condition_is_true `
 
 # passing data via props
 + short for properties
@@ -573,3 +574,106 @@ here arr2= [1,2,3,4,5]
 
 # functional updates
 + use (existingPosts)=>[postData,...existingPost] to avoid stale values during asynchronous updates
+
+# context API
++ prop drilling:- context API addresses prop drilling; component composition is an alternative
++ folder setup:- use a store folder for context files
++ initialization:- use react.createContext with initial state and export it
++ provider: implement with contextName.provider in component
++ access value:- use the useContext Hook
++ Dynamic Data:- combine context value with state
++ export function:- context can also export function for actions
++ logic separation:- this helps keeps the UI and business logic separate from each other
+
+The Context API in React provides a way to share values (state or functions) between components without having to explicitly pass props through every level of the component tree. It's often used to manage global state or share data across components that are not directly connected in the component hierarchy.
+
+```jsx
+import { createContext } from "react";
+
+export const ItemContext=createContext();
+
+// createContext() can take initial value of the context
+// this is named export so we have to import it in {}
+```
+this is ItemContext.jsx
+
+```jsx
+import Button1 from "./Button1";
+import Hello from "./Hello";
+import Fragment from "./Fragment";
+import Forms from "./Forms";
+import { ItemContext } from "./store/ItemContext";
+function App(){
+  let items=["iron man","captain america"];
+  const handleButton=(event)=>{
+    console.log(event)
+  }
+  return (<ItemContext.Provider value={items}>
+    <div>
+    <h1>hello world</h1>
+
+    <Button1></Button1>
+    <Hello></Hello>
+    <Fragment items={items} handleButton={(event)=>handleButton(event)}>
+      <h1>yo wai mo</h1>
+      <p>welcome to the hidden leaf</p>
+    </Fragment>
+    <Forms></Forms>
+  </div></ItemContext.Provider>)
+}
+export default App;
+```
+App.jsx
+
+whenever want to use the context api use useContext hook
+
+```jsx
+const itemFromContext=useContext(ItemContext);
+```
+import the useContext and ItemContext
+
+# use Reducer hook
+The useReducer hook in React is a more advanced alternative to useState. It is useful for managing complex state logic where the next state depends on the previous state. This hook is often preferred when dealing with state transitions that require more logic than just updating simple values, for example, when handling forms, animations, or managing state with multiple conditions.
+
+useReducer takes two arguments:
+
++ A reducer function, which specifies how the state should change based on an action.
++ An initial state.
+
+
++ Centralized State Management: When dealing with complex state logic (e.g., multiple actions affecting various state values), a single reducer function can manage it all.
++ Clear and Predictable Updates: Reducers make state transitions explicit and easy to follow, which is especially helpful in debugging.
++ Scalability: As your app grows, managing more state transitions with useReducer can be cleaner and easier than using multiple useState hooks.
++ Performance Optimization: useReducer can be more performant than useState for complex state management because it allows you to handle updates in a more optimized way.
+
+```jsx
+import {useReducer} from "react";
+
+const ItemReducer=(state,action)=>{
+  if(action.type==="NEW_ITEM"){
+    return action.payload.textData
+  }
+  else if(action.type==="DELETE_ITEM"){
+    return "deleted"
+  }
+}
+
+const Fragment=()=>{
+
+  let [gettextState,dispatchTextState]=useReducer(ItemReducer,"initialValueofreducer")
+  // useReducer takes reducer method and initial value
+  const textChange = (event) => {
+    const textData = event.target.value;
+    dispatchTextState({
+      type: "DELETE_ITEM",
+      payload: { textData },
+    });
+  };
+  
+  return (<>
+    <input type='text'  onChange={(event)=>textChange(event)}></input>
+    {gettextState}
+  </>);
+}
+export default Fragment;
+```
