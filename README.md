@@ -677,3 +677,25 @@ const Fragment=()=>{
 }
 export default Fragment;
 ```
+# data fetching using Fetch
+```js
+fetch('https://dummyjson.com/posts')
+.then(res => res.json())
+.then(console.log);
+```
+
+fetch functions returns a promise.
++ default is get method; for post use method:'POST'
++ Errors: doesn't reject on HTTP errors. Check response.ok
++ Headers: managed using Headers API
+# useEffect hook
++ handles side effects like data fetching and event handling
++ this run automatically after every render by default
++ By providing a dependency array, it will run when specified variables change. An empty array means the effect runs once.
++ multiple useEffect hooks can be used in a single component for oragnising different side effects separately.
+```js
+useEffect(()=>{
+ //method comes here
+},[])
+```
+[] is passed here means it will run only once otherwise an infinite loop would be initiated (runs at initial rendering)
