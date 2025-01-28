@@ -703,4 +703,19 @@ useEffect(()=>{
 # handling loading state
 + we can use useState for this
 + setFetching(true) before calling the API and setFetching(false) after calling the API
-+ 
++ and then use the value of fetching of useState to show loading status
+
+# useEffect hook cleanup
++ return a function from useEffect allows for a cleanuo, ideal for removing event listeners
+```js
+useEffect(()=>{
+  const timerId=setInterval(()=>{
+    //do something
+  },1000);
+
+  // this is the cleanup function
+  return()=>{
+     clearInterval(timerId);
+  };
+},[]);
+```
