@@ -699,3 +699,8 @@ useEffect(()=>{
 },[])
 ```
 [] is passed here means it will run only once otherwise an infinite loop would be initiated (runs at initial rendering)
+
+# handling loading state
++ we can use useState for this
++ setFetching(true) before calling the API and setFetching(false) after calling the API
++ 
