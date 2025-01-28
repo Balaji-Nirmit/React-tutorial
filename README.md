@@ -719,3 +719,20 @@ useEffect(()=>{
   };
 },[]);
 ```
+
+# advanced useEffect
+```js
+useEffect(()=>{
+  const controller =new AbortController();
+  const signal=controller.signal;
+  fetch('/api/users',{signal})
+  .then((res)=>res.json())
+  .then((data)=>{
+     setUser(data);
+  });
+
+ return()=>{
+     controller.abort();
+ };
+},[id]);
+```
