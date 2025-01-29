@@ -736,3 +736,7 @@ useEffect(()=>{
  };
 },[id]);
 ```
+
+# why the app was rendering twice?
++ this anomoly doesn't arise in poduction mode
++ it is due to strictmode of the main.jsx or index.jsx
