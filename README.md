@@ -748,5 +748,35 @@ useEffect(()=>{
 ```js
 useCallback(callback method,[dependencies])
 ```
-whenever the dependencies the changes, the callbackmethod is executed
 # useMemo hook
++ useEffect executes a function when its dependencies gets changed
++ useCallback returns a method and changes the definition of the method when the dependencies gets changed
++ useMemo caches the result of expensive calculations to enhance the performance
++ only recomputes the memoized value when the specific dependencies gets changed
++ helps prevent un-necessary recalculations
+```js
+useMemo(method,dependency)
+```
+# custom hooks
+```js
+const [value,toggle]=useToggle(true)
+const [value,{on,off,toggle}]=useBoolean(false)
+```
++ allows to extract and reuse component logics
++ combine multiple built-in hooks
++ enable shanring of stateful logic without changing component hierarchy
++ always start with 'use'
+
+# submitting data with Fetch
+```js
+fetch('api/api/api',{
+  headers:{'Content-Type':'application/json; charset=utf-8'},
+  method:'POST',
+  body:JSON.stringify({
+    username:'name',
+    email:'email@emial.com',
+  })
+  })
+  .then(res => res.json())
+  .then(data => console.log(data));
+```
