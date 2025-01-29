@@ -740,3 +740,13 @@ useEffect(()=>{
 # why the app was rendering twice?
 + this anomoly doesn't arise in poduction mode
 + it is due to strictmode of the main.jsx or index.jsx
+
+# useCallback hook
++ memoization: preserves functions across renders to prevent un-necessary re renders
++ optimization: enhances performance in components with frequent updates
++ dependency array: recreates the function only when specific dependencies changes
+```js
+useCallback(callback method,[dependencies])
+```
+whenever the dependencies the changes, the callbackmethod is executed
+# useMemo hook
