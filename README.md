@@ -882,3 +882,29 @@ const router=createBrowserRouter([
 	]},
 ])
 ```
+
+# submitting data using action
++ used to perform an action on submission of Forms
++ custom form component need to be used along with name attribute for all inputs
++ action function will get an data object
++ to generate correct request object, method="post" attributre should be used
+```
+  data.request.formData()
+```
+this method can be used to get form data object
+```
+object.formEntries(formData)
+```
+this can be used to get actual input data
++ redirect() response can be returned for navigation after submission
+
+```js
+const router=createBrowserRouter([
+	{path:"/",
+	 element:<App/>,
+	 children:[
+		{path:"/",element:<PostList/>,loader:() => {}, action:() => {}},
+		{path:"/create-post",element:<CreatePost/>},
+	]},
+])
+```
