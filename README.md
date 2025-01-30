@@ -780,3 +780,88 @@ fetch('api/api/api',{
   .then(res => res.json())
   .then(data => console.log(data));
 ```
+# react router
+```bash
+npm install react-router-dom
+```
++ after version 6+ everything is changed (checkout react router website for reference)
++ RouterProvider:wraps the app for routung capabilities.
++ createBrowserRouter:helps creating the mapping for router
++ declarative routing: easily defines application routes
++ routes are react components
++ layout routes for shared elements
++ route links : link component with to property can be used to avoid reloading
+```js
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import {RouterProvider, createBrowserRouter } from 'react-router-dom';
+import CreatePost from './components/CreatePost';
+import PostList from './components/PostList';
+
+const router=createBrowserRouter([
+	{path:"/",
+	 element:<App/>,
+	 children:[
+		{path:"/",element:<PostList/>},
+		{path:"/create-post",element:<CreatePost/>},
+	]},
+])
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+	<React.StrictMode>
+		<RouterProvider router={router}>
+		</RouterProvider>
+	</React.StrictMode>
+)
+```
++ outlet component is used to render the children at the correct places
+```js
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Sidebar from "./components/Sidebar";
+import {Outlet} from "react-router-dom";
+import {useState} from "react";
+import PostListProvider from "./store/post-list-store";
+
+export default function App() {
+  const [selectedTab,setSelectedTab]=useState("Home");
+  
+  
+  return (
+    <>
+      <PostListProvider>
+      <div className="appContainer">
+        <Sidebar selectedTab={selectedTab} setSelectedTab={setSelectedTab}></Sidebar>
+        <div className="content">
+          <Header></Header>
+          <Outlet />
+          <Footer></Footer>
+        </div>
+      </div>
+      </PostListProvider>
+    </>
+  );
+}
+
+```
++ useNavigate hook can be used to do navigation programmatically
+```js
+import {useNavigate} from "react-router-dom";
+const navigate = useNavigate();
+const method = () => {
+  navigate("/path comes here")
+}
+```
++ be sure to use navigate("path") at specific places like when adding a post use it inside then of addPost method otherwise it would navigate to the page and after navigation it may add the post
++ if using href then whole page would get loaded each time so that's why Link is used
+```js
+ <Link to="/" className={`nav-link ${selectedTab==="Home" && "active"}`} aria-current="page" >
+     <svg className="bi pe-none me-2" width="16" height="16">
+          <use xlinkHref="#home"></use>
+     </svg>
+     Home
+</Link>
+```
