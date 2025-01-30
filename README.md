@@ -944,3 +944,12 @@ export async function createPostData(data){
 }     
 export default CreatePost;
 ```
+
+# redux
++ state management for cross component or app-wide state
++ redux is a predictable state management library
++ local state vs cross component state vs App wide state
++ redux is used for app wide state management just like context api
++ it is different from context api is way that we can create multiple context api but only one redux will be created.
++ redux has greater performance
++ context api setup is tough
