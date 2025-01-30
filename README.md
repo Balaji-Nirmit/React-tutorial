@@ -815,6 +815,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 	</React.StrictMode>
 )
 ```
+it is index.jsx file( or main.jsx)
 + outlet component is used to render the children at the correct places
 ```js
 import "./App.css";
@@ -864,4 +865,20 @@ const method = () => {
      </svg>
      Home
 </Link>
+```
+# data fetching using loader
++ loader method can be used to load data before a particular route is executed
++ the loader method must return the data that is loaded or promise
++ data is available in component and all the child components
++ useLoader hook can be used to get the fetched data
++ loading state can also be used
+```js
+const router=createBrowserRouter([
+	{path:"/",
+	 element:<App/>,
+	 children:[
+		{path:"/",element:<PostList/>,loader:() => {}},
+		{path:"/create-post",element:<CreatePost/>},
+	]},
+])
 ```
