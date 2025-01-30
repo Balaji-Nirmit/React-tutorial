@@ -893,7 +893,7 @@ const router=createBrowserRouter([
 ```
 this method can be used to get form data object
 ```
-object.formEntries(formData)
+Object.fromEntries(formData)
 ```
 this can be used to get actual input data
 + redirect() response can be returned for navigation after submission
@@ -907,4 +907,40 @@ const router=createBrowserRouter([
 		{path:"/create-post",element:<CreatePost/>},
 	]},
 ])
+```
+
+```js
+import {Form, redirect} from "react-router-dom";
+const CreatePost=()=>{
+  return (
+    <>
+      <Form method="POST">
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
+          <input type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+          <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
+          <input type="password" name="password" className="form-control" id="exampleInputPassword1"/>
+        </div>
+        <div className="mb-3 form-check">
+          <input type="checkbox" name="checkbox" className="form-check-input" id="exampleCheck1"/>
+          <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" className="btn btn-primary">Submit</button>
+      </Form>
+    </>
+  )
+}
+
+export async function createPostData(data){
+  const formData = await data.request.formData();
+  const postData = Object.fromEntries(formData);
+  console.log(postData);
+  return redirect("/");
+//always need to return action method
+  
+}     
+export default CreatePost;
 ```
