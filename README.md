@@ -978,3 +978,24 @@ const redux = require('redux')
 node redux-demo.js
 ```
 command to run the node server
+
+# react with redux
+```bash
+npm install redux
+npm install react-redux
+```
++ create store folder with index.js file
++ creating the store using
+```js
+import {createStore} from redux
+```
+- providing the store with react
+  - provider from react redux
+```js
+<Provider store={store}><App /></Provider>
+```
+- using the store
+  - useSelector hook gets a slice of the store
+  - const counter = useSelector(state=>state.counter);
+  - Subscription is already setup and only will re-execute when only your slice is changed. Subscription is automatically cleared also
++ Dispatch actions using useDispatch hook
