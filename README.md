@@ -959,3 +959,22 @@ export default CreatePost;
 + **reducers**: actions are processed by reducers, pure functions that return new state
 + **immutable**: state is immutable, every change results in a new state object
 + this is different from useReducer hook
+
+# working with redux
+```bash
+npm init -y
+npm install redux
+```
++ import in node
+```js
+const redux = require('redux')
+```
+- we need all 4 things
+  - reducer
+  - store
+  - subscriber
+  - actions
+```bash
+node redux-demo.js
+```
+command to run the node server
