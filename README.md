@@ -953,3 +953,9 @@ export default CreatePost;
 + it is different from context api is way that we can create multiple context api but only one redux will be created.
 + redux has greater performance
 + context api setup is tough
+# how redux works
++ single source: uses a single central store to maintain the entire application state
++ **actions**:  components never directly change the store.Changes to state are made through dispatched actions which describe events
++ **reducers**: actions are processed by reducers, pure functions that return new state
++ **immutable**: state is immutable, every change results in a new state object
++ this is different from useReducer hook
