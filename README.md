@@ -1079,3 +1079,63 @@ const DisplayCounter = ()=>{
 export default DisplayCounter;
 ```
 displaycounter.jsx
+
+if multiple values are there in initial_value
+
+```js
+import { useDispatch} from "react-redux";
+
+const Controls=()=>{
+  const dispatch = useDispatch();
+
+  const increment = ()=>{
+    dispatch({type:"INCREMENT"});
+  }
+  const decrement = ()=>{
+    dispatch({type:"DECREMENT"});
+  }
+
+  const checkbox=()=>{
+    dispatch({type:"CHECKBOX"});
+  }
+  
+  return (
+    <>
+      <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" className="btn btn-primary" onClick={increment}>+1</button>
+        <button type="button" className="btn btn-secondary" onClick={decrement}>-1</button>
+        <input type="checkbox" onClick={checkbox}/>
+      </div>
+    </>
+  )
+}
+export default Controls;
+```
+control.jsx
+
+```js
+import {createStore} from "redux";
+
+const INITIAL_VALUE = {
+  counter: 0,
+  flag: true,
+} 
+
+const counterReducer=(store=INITIAL_VALUE,action)=>{
+  if(action.type==='INCREMENT'){
+    return {...store,counter:store.counter+1}
+  }
+  else if(action.type==='DECREMENT'){
+    return {...store,counter:store.counter-1}
+  }
+  else if(action.type==="CHECKBOX"){
+    return {...store,flag:!store.flag}
+  }
+  return store;
+}
+
+const counterStore=createStore(counterReducer);
+export default counterStore;
+```
+index.js store
+**Note**: always return complete store (shorthand using ... destructuring) otherwise on doing some action the previous value may be lost
