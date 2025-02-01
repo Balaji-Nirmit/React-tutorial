@@ -1139,3 +1139,43 @@ export default counterStore;
 ```
 index.js store
 **Note**: always return complete store (shorthand using ... destructuring) otherwise on doing some action the previous value may be lost
+
+# react redux toolkit
+## why redux toolkit
++ action  types are difficult to maintain
++ store becoming too big
++ mistakenly editing stores
++ reducer becoming too big
+## working with toolkit
+```bash
+npm install @reduxjs/toolkit
+```
++ remove redux from package.json
+```js
+import {createSlice} from "@redux/toolkit"
+```
++ slice of store can be created using following syntax
+```js
+const slice = createSlice({
+  name:"",
+  initialState:{},
+  reducers:{
+    smallReducerMethods:(state,action) => {
+    },
+  }
+})
+```
++ configureStore combines multiple reducers and can be used as:
+```js
+configureStore({
+  reducer:{name:slice.reducer}
+})
+```
+
+```js
+export actions=slice.actions;
+```
++ actions can be dispatched like:
+```js
+action.reducerMethod(payload);
+```
