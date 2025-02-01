@@ -996,6 +996,86 @@ import {createStore} from redux
 ```
 - using the store
   - useSelector hook gets a slice of the store
-  - const counter = useSelector(state=>state.counter);
+```js
+const counter = useSelector(state=>state.counter);
+```
   - Subscription is already setup and only will re-execute when only your slice is changed. Subscription is automatically cleared also
 + Dispatch actions using useDispatch hook
+
+```js
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import { Provider } from 'react-redux'
+import counterStore from './store'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+	<React.StrictMode>
+		<Provider store={counterStore}><App/></Provider>
+	</React.StrictMode>
+)
+```
+index.jsx
+
+```js
+import {createStore} from "redux";
+
+const INITIAL_VALUE = {
+  counter: 0,
+} 
+
+const counterReducer=(store=INITIAL_VALUE,action)=>{
+  if(action.type==='INCREMENT'){
+    return {counter:store.counter+1}
+  }
+  else if(action.type==='DECREMENT'){
+    return {counter:store.counter-1}
+  }
+  return store;
+}
+
+const counterStore=createStore(counterReducer);
+export default counterStore;
+```
+index.js store
+
+```js
+import { useDispatch} from "react-redux";
+
+const Controls=()=>{
+  const dispatch = useDispatch();
+
+  const increment = ()=>{
+    dispatch({type:"INCREMENT"});
+  }
+  const decrement = ()=>{
+    dispatch({type:"DECREMENT"});
+  }
+  
+  return (
+    <>
+      <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" className="btn btn-primary" onClick={increment}>+1</button>
+        <button type="button" className="btn btn-secondary" onClick={decrement}>-1</button>
+      </div>
+    </>
+  )
+}
+export default Controls;
+```
+controls.jsx
+
+```js
+import { useSelector } from "react-redux";
+
+const DisplayCounter = ()=>{
+  const counter = useSelector(state=>state.counter);
+  return (
+    <>
+      <p className="lead mb-4">Counter current value : {counter}</p>
+    </>
+  )
+}
+export default DisplayCounter;
+```
+displaycounter.jsx
