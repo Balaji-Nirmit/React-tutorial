@@ -1179,3 +1179,114 @@ export actions=slice.actions;
 ```js
 action.reducerMethod(payload);
 ```
+
+when multiple reducers are there then it is recommended to create separate files for each slice
+
+index.js
+```js
+import {configureStore} from "@reduxjs/toolkit"
+import counterSlice from "./counterSlice";
+import checkboxSlice from "./checkboxSlice";
+
+const counterStore=configureStore({
+  reducer:{
+    counter:counterSlice.reducer,
+    checkbox:checkboxSlice.reducer,
+  }
+});
+export default counterStore;
+```
+
+counterSlice.js
+```js
+import {createSlice} from "@reduxjs/toolkit"
+
+const counterSlice = createSlice({
+  name:"counter",
+  initialState:{counterValue:0},
+  reducers:{
+    increment:(state)=>{
+      state.counterValue++;
+    },
+    decrement:(state)=>{
+      state.counterValue--;
+    },
+  }
+})
+
+export const counterActions=counterSlice.actions;
+export default counterSlice;
+```
+
+checkboxSlice.js
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+const checkboxSlice = createSlice({
+  name:"checkbox",
+  initialState:{
+    checkboxValue:false,
+  },
+  reducers:{
+    toggle:(state)=>{
+      state.checkboxValue=!state.checkboxValue;
+    }
+  }
+})
+
+export const checkboxActions=checkboxSlice.actions;
+export default checkboxSlice;
+```
+----store
+   ----index.js
+   ----counterSlice.js
+   ----checkboxSlice.js
+
+controls.jsx
+```js
+import { useDispatch} from "react-redux";
+import { checkboxActions } from "../store/checkboxSlice";
+import { counterActions } from "../store/counterSlice";
+const Controls=()=>{
+  const dispatch = useDispatch();
+
+  const increment = ()=>{
+    dispatch(counterActions.increment());
+  }
+  const decrement = ()=>{
+    dispatch(counterActions.decrement());
+  }
+
+  const checkbox=()=>{
+    dispatch(checkboxActions.toggle());
+  }
+  
+  return (
+    <>
+      <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <button type="button" className="btn btn-primary" onClick={increment}>+1</button>
+        <button type="button" className="btn btn-secondary" onClick={decrement}>-1</button>
+        <input type="checkbox" onChange={checkbox}/>
+      </div>
+    </>
+  )
+}
+export default Controls;
+```
+
+display.jsx
+```js
+import { useSelector } from "react-redux";
+
+const DisplayCounter = ()=>{
+  const {counterValue} = useSelector((state)=>state.counter);
+  const {checkboxValue} = useSelector((state)=>state.checkbox);
+  return (
+    <>
+      <p className="lead mb-4">Counter current value : {counterValue}</p>
+      <p className="lead mb-4">Flag current value :{checkboxValue?"true":"false"}</p>
+   </>
+  )
+}
+export default DisplayCounter;
+```
