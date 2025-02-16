@@ -1290,3 +1290,90 @@ const DisplayCounter = ()=>{
 }
 export default DisplayCounter;
 ```
+
+# createAsycnThunk
+createAsyncThunk is a utility provided by Redux Toolkit to handle asynchronous operations (e.g., API calls) in a simple and standardized way.
+
+It helps you:
+
+Dispatch actions automatically based on the promise lifecycle:
++ Pending → Before API call starts.
++ Fulfilled → When API call succeeds.
++ Rejected → When API call fails.
+
+```jsx
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+// 1. Create an async thunk action
+export const asyncThunkName = createAsyncThunk(
+  'sliceName/actionName', // Action type string (must be unique)
+  async (arg, { rejectWithValue }) => {
+    try {
+      // Perform your async operation, e.g., API call
+      const response = await fetch(`https://api.example.com/data/${arg}`);
+      const data = await response.json();
+      
+      // Return data when successful
+      return data;
+    } catch (error) {
+      // Return error when failed
+      return rejectWithValue(error.message);
+    }
+  }
+);
+```
+return data will return the thunk on success
+rejectWithValue will reject the thunk on the error
+
+## how to use thunk in slice
+```jsx
+import { createSlice } from '@reduxjs/toolkit';
+import { asyncThunkName } from './path/to/thunk';
+
+const exampleSlice = createSlice({
+  name: 'example',
+  initialState: {
+    data: null,
+    loading: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(asyncThunkName.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(asyncThunkName.fulfilled, (state, action) => {
+        state.loading = false;
+        state.data = action.payload;
+      })
+      .addCase(asyncThunkName.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
+});
+
+export default exampleSlice.reducer;
+```
+
+## How to Dispatch createAsyncThunk in a Component
+```jsx
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser } from './userSlice';
+
+const UserComponent = () => {
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(fetchUser(1)); // Pass an argument (e.g., user ID) to the thunk
+  }, [dispatch]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
+  return <p>User: {data?.name}</p>;
+};
+```
